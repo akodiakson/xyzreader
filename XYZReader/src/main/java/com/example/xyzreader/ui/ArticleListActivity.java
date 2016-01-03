@@ -84,7 +84,6 @@ public class ArticleListActivity extends AppCompatActivity implements
         @Override
         public void onReceive(Context context, Intent intent) {
             if (UpdaterService.BROADCAST_ACTION_STATE_CHANGE.equals(intent.getAction())) {
-                System.out.println("ArticleListActivity.onReceive");
                 mIsRefreshing = intent.getBooleanExtra(UpdaterService.EXTRA_REFRESHING, false);
                 updateRefreshingUI();
             }
@@ -92,7 +91,6 @@ public class ArticleListActivity extends AppCompatActivity implements
     };
 
     private void updateRefreshingUI() {
-        System.out.println("ArticleListActivity.updateRefreshingUI");
         mSwipeRefreshLayout.setRefreshing(mIsRefreshing);
     }
 
@@ -119,7 +117,6 @@ public class ArticleListActivity extends AppCompatActivity implements
 
     @Override
     public void onRefresh() {
-        System.out.println("ArticleListActivity.onRefresh");
         refresh();
     }
 
@@ -159,8 +156,8 @@ public class ArticleListActivity extends AppCompatActivity implements
                             mCursor.getLong(ArticleLoader.Query.PUBLISHED_DATE),
                             System.currentTimeMillis(), DateUtils.HOUR_IN_MILLIS,
                             DateUtils.FORMAT_ABBREV_ALL).toString()
-                            + " by "
-                            + mCursor.getString(ArticleLoader.Query.AUTHOR));
+                            + " by " +
+                            mCursor.getString(ArticleLoader.Query.AUTHOR));
             holder.thumbnailView.setImageUrl(
                     mCursor.getString(ArticleLoader.Query.THUMB_URL),
                     ImageLoaderHelper.getInstance(ArticleListActivity.this).getImageLoader());

@@ -83,6 +83,5 @@ public class UpdaterService extends IntentService {
 
         sendStickyBroadcast(
                 new Intent(BROADCAST_ACTION_STATE_CHANGE).putExtra(EXTRA_REFRESHING, false));
-        System.out.println("UpdaterService.onHandleIntent end");
     }
 }
