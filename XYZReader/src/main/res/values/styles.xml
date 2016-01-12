@@ -28,4 +28,9 @@
         <item name="android:statusBarColor">@android:color/transparent</item>
     </style>
 
+    <style name="Expanded_Non_Ellipsized" parent="TextAppearance.AppCompat.Headline">
+        <item name="android:textColor">?android:attr/textColorPrimary</item>
+        <item name="android:singleLine">false</item>
+    </style>
+
 </resources>
