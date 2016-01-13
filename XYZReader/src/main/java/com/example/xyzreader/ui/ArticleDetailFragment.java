@@ -1,9 +1,11 @@
 package com.example.xyzreader.ui;
 
+import android.app.Activity;
 import android.app.Fragment;
 import android.app.LoaderManager;
 import android.content.Intent;
 import android.content.Loader;
+import android.content.res.ColorStateList;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.Color;
@@ -12,7 +14,9 @@ import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ShareCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.graphics.Palette;
 import android.support.v7.widget.Toolbar;
@@ -48,6 +52,8 @@ public class ArticleDetailFragment extends Fragment implements
     private int mMutedColor = 0xFF333333;
     private CollapsingToolbarLayout mPhotoContainerView;
     private ImageView mPhotoView;
+
+    private FloatingActionButton mFab;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -90,7 +96,7 @@ public class ArticleDetailFragment extends Fragment implements
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
         mRootView = inflater.inflate(R.layout.fragment_article_detail, container, false);
-
+        mFab = (FloatingActionButton) mRootView.findViewById(R.id.share_fab);
         mPhotoView = (ImageView) mRootView.findViewById(R.id.photo);
         mPhotoContainerView = (CollapsingToolbarLayout) mRootView.findViewById(R.id.photo_container);
 
@@ -150,6 +156,7 @@ public class ArticleDetailFragment extends Fragment implements
                                 mPhotoView.setImageBitmap(imageContainer.getBitmap());
                                 mRootView.findViewById(R.id.article_byline)
                                         .setBackgroundColor(mMutedColor);
+                                setFabColor(p);
                             }
                         }
 
@@ -164,6 +171,15 @@ public class ArticleDetailFragment extends Fragment implements
             bylineView.setText("N/A" );
             bodyView.setText("N/A");
         }
+    }
+
+    private void setFabColor(Palette p) {
+        final Activity activity = getActivity();
+        if(activity == null){
+            return;
+        }
+        final int vibrantColor = p.getVibrantColor(ContextCompat.getColor(activity, R.color.colorAccent));
+        mFab.setBackgroundTintList(ColorStateList.valueOf(vibrantColor));
     }
 
     @Override
